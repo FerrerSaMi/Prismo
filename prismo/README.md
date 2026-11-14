@@ -28,7 +28,7 @@ npm ci
 npm run dev
 ```
 
-Vite reenvía `/api/*` a `http://127.0.0.1:8787`. Los comandos de compilación, análisis y pruebas están en `package.json`; ejecútalos cuando se solicite comprobar esta iteración.
+Vite reenvía `/api/*` a `http://127.0.0.1:8787`. El comando completo de pruebas se ejecuta desde la raíz con `npm test`. Su preparación, alcance y casos están en [Pruebas automatizadas](../documentation/PRUEBAS_AUTOMATIZADAS.md).
 
 ## Preparación para despliegue
 
@@ -37,6 +37,7 @@ Vite reenvía `/api/*` a `http://127.0.0.1:8787`. Los comandos de compilación, 
 ## Documentos relacionados
 
 - [Índice de documentación](../documentation/README.md)
+- [Pruebas automatizadas](../documentation/PRUEBAS_AUTOMATIZADAS.md)
 - [API y token de INEGI](../prismo-api/README.md)
 - [Decisión de backend separado](docs/ADR-001-backend-separado.md)
 - [Exportación PDF](docs/PDF_EXPORT.md)

@@ -4,13 +4,13 @@ Backend separado del frontend `../prismo`. Implementa un BFF curado para cuatro 
 
 El flujo completo y los contratos se explican en [Arquitectura y operación](../documentation/ARQUITECTURA_Y_OPERACION.md); la experiencia de consulta a reporte está en [Cómo funciona Prismo](../documentation/COMO_FUNCIONA.md).
 
+Las pruebas del BFF y la suite completa del repositorio están descritas en [Pruebas automatizadas](../documentation/PRUEBAS_AUTOMATIZADAS.md). El comando de la raíz `npm test` incorpora typecheck, pruebas de la API y pruebas del frontend.
+
 ## Desarrollo
 
 ```bash
 npm ci
 npm run dev
-npm test
-npm run typecheck
 ```
 
 Servidor local: `http://127.0.0.1:8787`. El frontend de Vite reenvía `/api/*` a ese puerto. Prueba de salud: `GET /api/v1/health`. Comparación de dos países: `GET /api/v1/indicators/wb-forest-area-share/observations?geography=MEX%2CBRA&from=2020&to=2024`.
