@@ -1,0 +1,7 @@
+{
+  "name": "prismo-workspace",
+  "private": true,
+  "scripts": {
+    "test": "npm --prefix prismo run lint && npm --prefix prismo run build && npm --prefix prismo run test && npm --prefix prismo-api run typecheck && npm --prefix prismo-api run test && npm --prefix prismo run test:e2e"
+  }
+}
