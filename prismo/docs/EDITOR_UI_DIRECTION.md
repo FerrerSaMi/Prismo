@@ -1,41 +1,22 @@
-# Dirección visual del editor de Prismo
+# Interfaz actual del editor
 
-**Estado:** primer editor implementado; quedan pendientes funciones avanzadas y exportación PDF.  
-**Base:** referencia visual compartida por el responsable del proyecto y `PRISMO_PRODUCT_UX_v1.2.md` (P05), `PRISMO_SRS_v1.0.md` (RF-031 a RF-048) y `PRISMO_SYSTEM_DESIGN_v1.0.md` (§11–12).
+Esta nota describe el editor implementado. Para recorrer todo el producto, consulta [Cómo funciona Prismo](../../documentation/COMO_FUNCIONA.md).
 
-## Composición
+## Distribución
 
-La referencia propone un entorno de escritura con **barra superior**, **recursos a la izquierda** y **hoja central**. Prismo conservará esa lectura espacial con su paleta marfil, café y olivo, y con una barra de formato discreta.
+- La barra superior muestra el regreso a **Mis reportes**, el estado de guardado local, **Vista previa** y **Descargar PDF**.
+- La hoja blanca centra la escritura y los dashboards insertados. Se muestra en páginas visuales y conserva márgenes para distinguir el documento del espacio de trabajo.
+- **Formato** abre un panel a la derecha que acompaña el desplazamiento. Reúne opciones de documento, título y selección de texto, además de acciones compactas de párrafo. Se cierra con la **×**, Escape o un clic fuera. En pantallas estrechas se superpone y puede retirarse para leer la hoja.
+- Los controles de cada dashboard aparecen en su propio bloque. Permiten cambiar estilo y tamaño, moverlo entre bloques o eliminarlo. **+ Dashboard** inserta otra vista junto al cursor.
 
-```text
-┌─────────────────────────────────────────────────────────────────────────────┐
-│ Prismo / título del reporte          Guardado local  Vista previa  Exportar PDF │
-├───────────┬────────────────────┬────────────────────────────────────────────┤
-│ Menú      │ Panel contextual   │ Barra de formato                            │
-│ izquierdo │ Estructura         ├────────────────────────────────────────────┤
-│           │ Análisis guardados │        Hoja editable centrada              │
-│           │ Fuentes            │        Texto + tablas + gráficas           │
-│           │ Elementos          │                                            │
-└───────────┴────────────────────┴────────────────────────────────────────────┘
-```
+## Escritura y datos
 
-- **Menú izquierdo plegable:** conecta el editor con Explorar datos, Mis reportes y Ayuda. El control para contraerlo o expandirlo vive al pie del panel; el logo regresa a Inicio. Dentro del editor, abre paneles de estructura del documento, análisis guardados, fuentes y elementos insertables.
-- **Panel contextual:** muestra los elementos del apartado elegido. Las fuentes y los análisis provienen de datos consultados y guardados, no de miniaturas ficticias.
-- **Hoja central:** superficie blanca o muy clara, ancho cómodo para lectura, con márgenes de página y desplazamiento vertical. Los bloques de datos conservan título, unidad, periodo y procedencia visibles.
-- **Barra de formato:** encabezados, párrafos, negritas, cursivas, listas y tablas; controles con texto accesible y atajos de teclado. Puede ser fija o contextual según las pruebas de uso.
-- **Barra superior:** título editable, estado de guardado local, vista previa y exportación. No mostrar «guardado» hasta recibir confirmación de IndexedDB.
-- **Ficha de fuente:** se abre al seleccionar una gráfica o tabla. Conserva organismo, enlace, indicador, filtros, fechas y notas. En escritorio puede ocupar un panel derecho opcional; al escribir se oculta para dar prioridad a la hoja.
+Tiptap gestiona el texto y los nodos de dashboard. El documento permite títulos, párrafos, listas, citas, énfasis y alineación. Cada vista conserva el `ChartSpec` y el `DatasetSnapshot` que originaron sus valores; el editor no consulta al proveedor mientras se escribe. El sello del documento lleva el logo y las líneas **Creado con Prismo** y **Datos con procedencia · análisis de tu reporte**.
 
-## Comportamiento
+El guardado local se confirma después de escribir en Dexie/IndexedDB. La vista previa y la descarga convierten el documento en un PDF con texto, visualizaciones y referencias. La paginación de las hojas web puede diferir de la del PDF; consulta [Exportación PDF](PDF_EXPORT.md).
 
-El acceso al editor partirá de **Mis reportes** o de **Añadir al reporte** tras una consulta real. El primer documento podrá iniciar en blanco. Un botón **Insertar análisis** abrirá la biblioteca de visualizaciones guardadas; no habrá datos de ejemplo presentados como oficiales.
+## Aspecto y accesibilidad
 
-En móvil, la hoja ocupa el ancho disponible. El menú y los recursos se muestran como paneles superpuestos, con cierre por botón y tecla Escape. La barra de formato se reduce a las acciones esenciales y permite acceder a las demás sin desplazamiento horizontal de toda la página.
+La interfaz utiliza marfil `#F6F0E4`, grafito `#17191F`, blanco `#FFFFFF` y oro `#C9A86A`. El modo oscuro usa fondo grafito y tarjetas `#272B34`; la hoja y las vistas previas se mantienen blancas para lectura e impresión. Los controles tienen nombres accesibles o ayudas contextuales, son operables con teclado y reducen las transiciones cuando el navegador solicita menos movimiento.
 
-Las transiciones serán breves y funcionales: abrir panel, seleccionar bloque y confirmar guardado. Se respetará `prefers-reduced-motion`. El editor no incluirá funciones de «texto mágico» ni redacción automática, de acuerdo con la decisión de que el autor conserve el control editorial. La voz continúa marcada como **Próximamente**.
-
-## Estado de implementación
-
-El primer recorrido ya permite consultar superficie forestal y abrir un estudio de dashboards de tres zonas. La galería permite activar, seleccionar y ordenar la tendencia, la comparación anual y la tabla. El lienzo presenta la vista elegida con datos reales y procedencia; el inspector permite modificar título, países visibles, colores, año de comparación, puntos y etiquetas de gráfica, y estilo y filas de tabla. Las vistas seleccionadas pasan en ese orden a un reporte nuevo o existente. En el reporte, cada bloque se puede mover entre párrafos, reducir, retitular, recolorear, cambiar de fuente y tamaño de letra o eliminar. La biblioteca inserta otra vista de una consulta guardada en el cursor. El documento tiene controles generales de tipografía y un sello «Creado con Prismo» al pie derecho. Tiptap guarda texto y nodos de gráfica o tabla; Dexie conserva el borrador, las opciones visuales y la instantánea consultada. Las pruebas E2E comprueban la consulta, edición, orden, borrado, reinserción y recuperación tras recargar. Faltan tablas de contenido editable y exportación PDF con referencias verificadas.
-
-**Actualización 13/11/2026:** el catálogo ahora separa tema, sección e indicador; los ocho indicadores disponibles muestran su fuente. El editor incluye fuentes y colores por selección, hojas visuales y descarga PDF con referencias y sello. La paginación visual aún tiene la limitación descrita en [PDF_EXPORT.md](PDF_EXPORT.md). Este apartado de estado anterior se conserva como registro del primer corte.
+La voz continúa señalada como **Próximamente**. La redacción y la interpretación siguen a cargo de la persona autora.
