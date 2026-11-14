@@ -1,0 +1,8 @@
+.holo-card { --holo-x: 50%; --holo-y: 50%; --holo-rx: 0deg; --holo-ry: 0deg; position: relative; isolation: isolate; transform: perspective(900px) rotateX(var(--holo-rx)) rotateY(var(--holo-ry)); transform-style: preserve-3d; transition: transform .22s ease, border-color .2s ease, box-shadow .2s ease; }
+.holo-card::before { content: ''; position: absolute; inset: 0; z-index: 2; border-radius: inherit; background: radial-gradient(circle at var(--holo-x) var(--holo-y), rgb(255 255 255 / 32%), transparent 48%), linear-gradient(125deg, transparent 20%, rgb(201 168 106 / 8%) 40%, rgb(201 168 106 / 22%) 58%, transparent 78%); opacity: 0; pointer-events: none; transition: opacity .22s ease; }
+.holo-card:hover::before, .holo-card:focus-within::before { opacity: 1; }
+.holo-card[data-active] { border-color: var(--prismo-highlight); box-shadow: 0 10px 24px rgb(65 47 31 / 13%), inset 3px 0 0 var(--prismo-highlight); }
+.holo-card:focus-within { outline: 2px solid var(--prismo-olive); outline-offset: 2px; }
+.holo-card[data-static] { transform: none; }
+.holo-card[data-static]::before { display: none; }
+@media (prefers-reduced-motion: reduce) { .holo-card { transform: none !important; transition: none !important; } .holo-card::before { display: none; } }

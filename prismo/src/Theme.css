@@ -1,0 +1,106 @@
+/* Palette tokens are shared by the landing page, workspace and editor chrome. */
+:root :is(.site-header, .sidebar, .workspace-topbar, .hero-panel, .section-band, .topic-preview > div, .help-list section, .category-card, .notice, .forest-filters, .result-state, .result-summary > div, .table-scroll, .provenance, .empty-state, .coming-flow > div, .country-kpi, .dashboard-panel, .report-list a, .report-topline, .report-toolbar, .catalog-tools, .catalog-empty, .catalog-section, .indicator-card, .studio-pages, .studio-inspector, .studio-page, .inspector-section, .format-section, .chart-settings-group, .prismo-stepper, .metric-card, .pdf-preview-dialog) {
+  background: var(--prismo-surface);
+  color: var(--prismo-ink);
+}
+:root :is(.source-credits, .studio-canvas, .studio-layout, .catalog-section.is-coming) { background: var(--prismo-surface-muted); }
+:root :is(.hero-copy .lead, .workflow p, .section-note, .topic-preview p, .page-intro, .category-card p, .result-state p, .result-label, .results-section > p, .provenance dt, .country-kpi small, .report-list span, .chart-source, .studio-help, .inspector-note, .studio-page-open small, .filter-note, .report-topline, .source-credits-heading p:last-child, .catalog-tools > [role="status"], .indicator-card > span:nth-child(3), .catalog-empty p, .coming-message, .studio-canvas-top, .site-footer, .coming-flow p) { color: var(--prismo-muted); }
+:root :is(.eyebrow, .text-link, .card-link, .back-link, .indicator-kind, .indicator-open, .studio-page-index, .studio-source-link) { color: var(--prismo-accent-text); }
+:root :is(.button-primary, .catalog-filters button[aria-pressed="true"]) { background: var(--prismo-highlight); border-color: var(--prismo-highlight); color: var(--prismo-on-accent); }
+:root .button-primary:hover { background: #D9BB82; border-color: #D9BB82; color: #17191F; }
+:root :is(.button-secondary, .catalog-filters button, .country-options label, .studio-page-actions button, .report-toolbar button, .chart-block-actions button) { color: var(--prismo-ink); }
+:root :is(.site-header, .sidebar, .workspace-topbar) { border-color: var(--prismo-beige); }
+:root .source-credits-heading a { color: var(--prismo-accent-text); }
+:root .source-credits-heading a:hover { color: var(--prismo-ink); }
+:root :is(.source-mark-inegi, .source-mark-world-bank) { color: var(--prismo-accent-text); }
+:root .side-nav a[aria-current="page"] { color: var(--prismo-accent-text); background: var(--prismo-surface-muted); box-shadow: inset 3px 0 0 var(--prismo-highlight); }
+:root :is(.side-nav a:hover, .sidebar-toggle:hover, .menu-toggle:hover, .format-toggle:hover, .studio-page-open:hover, .studio-page-open[aria-pressed="true"], .report-toolbar button:hover, .catalog-search-row button:hover) { background: var(--prismo-surface-muted); }
+:root :is(.forest-filters select, .forest-filters input, .country-options label, .comparison-year select, .report-action select, .catalog-search-row input, .catalog-filters button, .inspector-field input, .inspector-field select, .report-toolbar select, .report-toolbar input, .chart-edit-controls input, .chart-edit-controls select, .caret-dashboard-options, .caret-dashboard-options button) { background: var(--prismo-surface); color: var(--prismo-ink); border-color: var(--prismo-beige); }
+:root :is(.report-toolbar, .report-topline, .format-toggle, .studio-layout, .studio-canvas, .studio-pages, .studio-inspector, .studio-page, .inspector-section, .catalog-section, .indicator-card) { border-color: var(--prismo-beige); }
+:root .catalog-section.is-coming { color: var(--prismo-muted); }
+:root .indicator-source, :root .source-banner { background: var(--prismo-surface-muted); color: var(--prismo-ink); border-color: var(--prismo-highlight); }
+:root .table-scroll thead th { background: var(--prismo-surface-muted); color: var(--prismo-ink); }
+:root .table-scroll tbody tr:nth-child(even) { background: var(--prismo-surface-muted); }
+:root .format-toggle { background: var(--prismo-surface); color: var(--prismo-ink); }
+:root .report-toolbar .warm-tooltip-trigger button { color: var(--prismo-ink); }
+:root .prismo-stepper li[data-state="current"] .stepper-number { color: #17191F; box-shadow: 0 0 0 4px rgb(201 168 106 / 20%); }
+:root .prismo-stepper li[data-state="upcoming"] { color: var(--prismo-muted); }
+[data-theme="dark"] .prismo-stepper li[data-state="complete"] .stepper-number { color: #17191F; }
+:root .studio-page-art, :root .studio-page-art.art-bar, :root .studio-page-art.art-delta, :root .studio-page-art.art-kpi, :root .studio-page-art.art-table { background: var(--prismo-surface-muted); color: var(--prismo-accent-text); }
+:root .studio-page.is-active { border-color: var(--prismo-highlight); box-shadow: inset 3px 0 0 var(--prismo-highlight), 0 2px 7px rgb(0 0 0 / 9%); }
+:root .report-paper, :root .studio-artboard, :root .paper-page-bg { color: #17191F; }
+:root .studio-artboard, :root .paper-page-bg, :root .report-paper .report-chart-block { background: #FFFFFF; }
+:root .report-paper :is(.report-chart-block, .report-references, .report-stamp) { color: #17191F; }
+:root .report-paper :is(h1, h2, h3) { color: #17191F; }
+:root .report-paper .metric-card, :root .report-paper .table-scroll { background: #FFFFFF; color: #17191F; }
+:root .report-paper .table-scroll:not(.table-theme-olive):not(.table-theme-clay) thead th { background: #EEEAE2; color: #17191F; }
+:root .report-paper .table-scroll tbody tr:nth-child(even) { background: #F8F6F1; }
+
+/* Editor chrome follows the selected theme; the document and chart sheet stay white for print fidelity. */
+:root .builder-footer { background: var(--prismo-surface); color: var(--prismo-ink); border-color: var(--prismo-beige); }
+:root .builder-footer > div:first-child > p:last-child, :root .builder-footer strong, :root .report-action label { color: var(--prismo-ink); }
+:root .studio-page-actions button { background: var(--prismo-surface); color: var(--prismo-ink); border-color: var(--prismo-beige); }
+:root .studio-page-actions button:hover:not(:disabled) { background: var(--prismo-surface-muted); border-color: var(--prismo-highlight); }
+:root .studio-page-actions, :root .studio-pages, :root .studio-inspector, :root .studio-canvas { color: var(--prismo-ink); }
+:root .studio-artboard p.chart-source { color: #51463d; }
+:root .studio-artboard .studio-source-link { color: #96572f; }
+:root .studio-artboard .eyebrow { color: #715435; }
+:root .report-paper p.chart-source { color: #51463d; }
+:root .report-paper a { color: #96572f; }
+:root .inspector-section:has(.color-menu-trigger[aria-expanded="true"]) { position: relative; z-index: 10; overflow: visible; }
+:root .studio-inspector:has(.color-menu-trigger[aria-expanded="true"]) { z-index: 4; }
+:root .studio-canvas-top { color: var(--prismo-ink); }
+:root .report-action select { background: var(--prismo-surface); color: var(--prismo-ink); border-color: var(--prismo-beige); }
+
+/* The report and dashboard sheets are print surfaces, even inside dark chrome. */
+:root .report-paper, :root .studio-artboard { color-scheme: light; }
+:root .report-paper .report-title-input { background: #FFFFFF; border-bottom-color: #DDD7CB; }
+:root .report-paper .report-title-input::selection { background: #C9A86A; color: #17191F; }
+:root .report-paper > label.eyebrow, :root .report-paper .report-chart-block .eyebrow { color: #715435; }
+:root .report-paper .chart-drag-handle { color: #51463D; }
+:root .report-paper .chart-block-head button { background: #FFFFFF; color: #17191F; border-color: #B5A991; }
+:root .report-paper .chart-block-head button:hover { background: #F6F0E4; }
+:root .report-paper .chart-resize { background: #51463D; color: #FFFFFF; }
+:root .report-paper .caret-dashboard-menu > button { background: #FFFFFF; color: #17191F; }
+:root .studio-artboard .metric-card, :root .studio-artboard .table-scroll { background: #FFFFFF; color: #17191F; }
+:root .studio-artboard .metric-card :is(small, span), :root .report-paper .metric-card :is(small, span) { color: #51463D; }
+:root .studio-artboard .table-scroll caption, :root .report-paper .table-scroll caption { color: #51463D; }
+:root .studio-artboard .table-scroll thead th { background: #EEEAE2; color: #17191F; }
+:root .studio-artboard .table-scroll tbody tr:nth-child(even) { background: #F8F6F1; }
+
+/* Controls outside the printable sheets use the selected theme. */
+[data-theme="dark"] :is(.sidebar-foot, .topbar-description, .topbar-note, .dashboard-heading p:last-child, .dashboard-panel > p:not(.eyebrow), .result-summary .result-label, .table-scroll caption) { color: var(--prismo-muted); }
+[data-theme="dark"] :is(.comparison-fact, .country-options label.selected, .report-list-actions button, .pdf-preview-head button) { background: var(--prismo-surface); color: var(--prismo-ink); border-color: var(--prismo-beige); }
+[data-theme="dark"] .comparison-fact :is(span, p) { color: var(--prismo-ink); }
+[data-theme="dark"] .report-list-card > .report-delete-x { color: var(--prismo-muted); }
+[data-theme="dark"] .report-list-card > .report-delete-x:hover { color: #FFB4A8; background: #572C30; }
+[data-theme="dark"] .logo-loop-item { color: var(--prismo-ink); }
+[data-theme="dark"] .stepper-number { background: var(--prismo-surface); color: var(--prismo-ink); }
+[data-theme="dark"] .chart-settings-group { color-scheme: dark; }
+[data-theme="dark"] .catalog-section.is-coming .category-id { color: var(--prismo-muted); }
+[data-theme="dark"] .indicator-card:hover { background: var(--prismo-surface-muted); }
+[data-theme="dark"] .metric-card :is(small, span) { color: var(--prismo-muted); }
+
+/* Borderless, three-line menu control with a small response to pointer and press. */
+.header-actions { display: flex; align-items: center; gap: 12px; margin-left: auto; }
+.theme-toggle { display: grid; place-items: center; flex: none; width: 42px; height: 42px; padding: 0; border: 0; border-radius: 50%; background: transparent; color: var(--prismo-ink); cursor: pointer; transition: background-color .2s ease, color .2s ease, transform .2s ease; }
+.theme-toggle svg { width: 22px; height: 22px; transition: transform .25s ease; }
+.theme-toggle:hover { background: var(--prismo-surface-muted); color: var(--prismo-accent-text); }
+.theme-toggle:hover svg { transform: rotate(18deg); }
+.theme-toggle:active { transform: scale(.91); }
+.workspace-topbar > .theme-toggle { margin-left: auto; }
+.menu-toggle, .sidebar-toggle { border: 0; border-radius: 8px; background: transparent; color: var(--prismo-ink); box-shadow: none; }
+.menu-toggle { width: 44px; height: 44px; }
+.sidebar-toggle { width: 44px; min-height: 44px; padding: 0; justify-self: end; justify-content: center; }
+.sidebar-closed .sidebar-toggle { justify-self: center; width: 44px; padding: 0; }
+.menu-toggle:hover, .sidebar-toggle:hover { color: var(--prismo-accent-text); }
+.menu-toggle:active, .sidebar-toggle:active { transform: scale(.9); }
+.menu-glyph { display: grid; gap: 4px; width: 23px; }
+.menu-glyph > span { display: block; width: 23px; height: 2px; border-radius: 2px; background: currentColor; transition: transform .22s ease, width .22s ease; }
+.menu-toggle:hover .menu-glyph > span:first-child, .sidebar-toggle:hover .menu-glyph > span:first-child { transform: translateX(2px); }
+.menu-toggle:hover .menu-glyph > span:last-child, .sidebar-toggle:hover .menu-glyph > span:last-child { transform: translateX(-2px); }
+.sidebar-toggle[aria-expanded="true"] .menu-glyph > span:nth-child(2) { width: 16px; }
+@media (min-width: 801px) { .sidebar-closed .menu-toggle { display: inline-flex; } }
+@media (max-width: 800px) { .sidebar-closed .sidebar-toggle { justify-self: end; } }
+@media (max-width: 540px) { .header-inner .brand span { display: none; } .header-actions { gap: 4px; } .header-actions .landing-entry { min-width: 0; } }
+@media (prefers-reduced-motion: reduce) { .theme-toggle, .theme-toggle svg, .menu-glyph > span { transition: none; } }

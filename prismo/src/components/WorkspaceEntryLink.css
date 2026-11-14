@@ -1,0 +1,10 @@
+.workspace-entry-overlay { position: fixed; inset: 0; z-index: 60; display: grid; place-content: center; justify-items: center; gap: 14px; background: var(--prismo-ivory); color: var(--prismo-ink); animation: entry-reveal .25s ease both; }
+.workspace-entry-mark { display: flex; align-items: center; gap: 14px; font-size: clamp(2rem, 5vw, 3.3rem); font-weight: 850; letter-spacing: -.05em; }
+.workspace-entry-mark img { width: 58px; height: 58px; object-fit: contain; animation: entry-mark .55s ease both; }
+.workspace-entry-overlay p { margin: 0; color: var(--prismo-muted); font-size: .9rem; }
+.workspace-entry-progress { width: min(240px, 55vw); height: 5px; overflow: hidden; border-radius: 999px; background: var(--prismo-surface-muted); }
+.workspace-entry-progress span { display: block; width: 100%; height: 100%; transform-origin: left; background: var(--prismo-highlight); animation: entry-progress .52s ease-out both; }
+@keyframes entry-reveal { from { opacity: 0; } to { opacity: 1; } }
+@keyframes entry-mark { from { opacity: .2; transform: translateY(12px) scale(.9); } to { opacity: 1; transform: none; } }
+@keyframes entry-progress { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@media (prefers-reduced-motion: reduce) { .workspace-entry-overlay, .workspace-entry-mark img, .workspace-entry-progress span { animation: none; } }

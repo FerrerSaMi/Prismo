@@ -1,0 +1,7 @@
+.warm-tooltip-trigger { display: inline-flex; align-items: center; }
+.warm-tooltip-label { position: fixed; z-index: 90; display: inline-flex; align-items: center; gap: 8px; max-width: 220px; padding: 7px 10px; border: 1px solid #34383e; border-radius: 7px; background: #25292f; box-shadow: 0 8px 20px rgb(0 0 0 / 22%); color: #fff; font-size: .72rem; font-weight: 650; line-height: 1.2; white-space: nowrap; pointer-events: none; animation: warm-pop .17s ease both; }
+.warm-tooltip-top { transform: translate(-50%, -100%); }
+.warm-tooltip-bottom { transform: translateX(-50%); }
+.warm-tooltip-label kbd { padding: 2px 4px; border: 1px solid #747b84; border-radius: 3px; font: inherit; font-size: .65rem; opacity: .8; }
+@keyframes warm-pop { from { opacity: 0; filter: blur(3px); scale: .94; } to { opacity: 1; filter: none; scale: 1; } }
+@media (prefers-reduced-motion: reduce) { .warm-tooltip-label { animation: none; } }

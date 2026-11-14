@@ -1,0 +1,14 @@
+.card-nav { min-width: 0; overflow: hidden; border: 1px solid var(--prismo-beige); border-radius: 9px; background: var(--prismo-surface); transition: border-color .2s ease, box-shadow .2s ease; }
+.card-nav[data-open] { border-color: var(--prismo-light-brown); box-shadow: 0 9px 22px rgb(48 37 26 / 8%); }
+.card-nav-trigger { display: flex; align-items: center; justify-content: space-between; gap: 10px; width: 100%; min-height: 40px; padding: 10px 12px; border: 0; background: transparent; color: var(--prismo-ink); font: inherit; font-size: .82rem; font-weight: 800; text-align: left; cursor: pointer; }
+.card-nav-trigger:hover { background: var(--prismo-surface-muted); }
+.card-nav-trigger:focus-visible { outline: 3px solid var(--prismo-olive); outline-offset: -3px; }
+.card-nav-chevron { color: var(--prismo-accent-text); font-size: 1.18rem; line-height: 1; transition: transform .27s ease; }
+.card-nav[data-open] .card-nav-chevron { transform: rotate(180deg); }
+.card-nav-reveal { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .32s cubic-bezier(.2,.75,.25,1); }
+.card-nav[data-open] .card-nav-reveal { grid-template-rows: 1fr; }
+.card-nav-panel { min-height: 0; overflow: hidden; visibility: hidden; opacity: 0; transition: opacity .19s ease, visibility .19s; }
+.card-nav[data-open] .card-nav-panel { visibility: visible; opacity: 1; transition-delay: .08s; }
+.card-nav[data-open] .card-nav-panel > * { animation: card-nav-rise .33s ease both; }
+@keyframes card-nav-rise { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .card-nav, .card-nav-reveal, .card-nav-panel, .card-nav-chevron { transition: none !important; } .card-nav-panel > * { animation: none !important; } }
