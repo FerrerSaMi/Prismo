@@ -4,7 +4,7 @@ Prismo permite elegir un indicador oficial, revisar sus observaciones, diseñar 
 
 ## 1. Inicio y catálogo
 
-La portada explica el recorrido y acredita a INEGI y Banco Mundial. **Entrar al espacio** abre la navegación de trabajo. El logo vuelve a Inicio; el menú lateral izquierdo se puede contraer y, en móvil, abrir como panel. El tema claro u oscuro se guarda en este navegador. La hoja del reporte y el lienzo de la vista previa permanecen blancos para conservar una lectura semejante a la salida impresa.
+La portada explica el recorrido y acredita a INEGI y Banco Mundial como fuentes conectadas. En el encabezado de **Procedencia visible**, junto a «Conectadas», muestra «Futuras: OCDE, ONU · ODS y FAOSTAT · Próximamente», con enlaces a sus sitios oficiales; esas APIs aún no alimentan consultas de Prismo. **Entrar al espacio** abre la navegación de trabajo. El logo vuelve a Inicio; el menú lateral izquierdo se puede contraer y, en móvil, abrir como panel. El tema claro u oscuro se guarda en este navegador. La hoja del reporte y el lienzo de la vista previa permanecen blancos para conservar una lectura semejante a la salida impresa.
 
 **Explorar datos** organiza los temas en secciones y tarjetas de indicadores. Se pueden buscar y filtrar tarjetas disponibles o marcadas como **Próximamente**. Cada tarjeta disponible muestra la fuente antes de abrir la consulta. No se ofrecen campos libres para escribir países, entidades o años: los filtros usan opciones curadas y menús animados. Si un menú está cerca del borde inferior de la ventana, se abre hacia arriba; las opciones restantes se recorren dentro del menú.
 

@@ -43,6 +43,10 @@ El frontend valida cada respuesta de la API antes de usarla. Las observaciones a
 
 Los IDs y unidades exactos están en `prismo/src/features/explorer/indicatorCatalog.ts`, `prismo-api/src/world-bank.ts` y `prismo-api/src/inegi.ts`. Agregar una tarjeta requiere actualizar catálogo, adaptador y filtros; comprobar definición, unidad, cobertura, periodos y respuesta real; y evitar comparaciones entre series que no sean equivalentes. Los códigos `CAT-*` siguen siendo internos y no se muestran como encabezados al usuario.
 
+### Fuentes futuras visibles
+
+La portada y **Ayuda y fuentes** presentan [OCDE](https://sdmx.oecd.org/public/), [ONU · ODS](https://unstats.un.org/SDGAPI/swagger/) y [FAOSTAT](https://www.fao.org/faostat/en/docs/redoc-static.html) como **Próximamente**. Son candidatas para ampliar economía, desarrollo sostenible, alimentación y medio ambiente; sus datos aún no se consultan ni se atribuyen a los reportes actuales. Antes de conectar cualquiera se debe verificar acceso, cobertura, definición, unidad, licencia y metadatos de indicadores concretos, y añadir un adaptador validado en `prismo-api/`.
+
 ## Estado, diseño y accesibilidad
 
 `prismo/src/App.tsx` define rutas, portada, navegación y tema. `index.css` contiene los colores base; `Theme.css` aplica las variantes. Modo claro: marfil `#F6F0E4`, blanco `#FFFFFF`, carbón `#17191F`; modo oscuro: grafito `#17191F`, tarjeta `#272B34`, texto marfil. El oro `#C9A86A` es el acento en ambos. La elección del tema vive en `localStorage`; reportes y snapshots viven en IndexedDB.
