@@ -2,6 +2,8 @@
 
 Backend separado del frontend `../prismo`. Implementa un BFF curado para cuatro indicadores del Banco Mundial (superficie forestal, inflación, desempleo y consumo de energía renovable) y cuatro del INEGI (población inmigrante, viviendas con agua entubada, unidades económicas y alfabetización juvenil). El código de `src/worker.ts` usa Web Fetch y está preparado para Cloudflare Workers; `src/dev-server.ts` lo sirve localmente con Node 24.
 
+El flujo completo y los contratos se explican en [Arquitectura y operación](../documentation/ARQUITECTURA_Y_OPERACION.md); la experiencia de consulta a reporte está en [Cómo funciona Prismo](../documentation/COMO_FUNCIONA.md).
+
 ## Desarrollo
 
 ```bash
@@ -23,4 +25,4 @@ Las consultas del Banco Mundial tienen un límite de espera de 18 segundos por i
 
 `wrangler.jsonc` define un Worker independiente. `npx wrangler deploy --dry-run --outdir dist-worker` compila sin publicar. Antes de desplegar, configura `FRONTEND_ORIGIN` con el origen exacto del frontend, compila el frontend con `VITE_API_BASE_URL` apuntando a la URL pública del Worker y carga `INEGI_TOKEN` como secreto del Worker (`npx wrangler secret put INEGI_TOKEN`). No guardes tokens en el código ni en `VITE_*`.
 
-La API no acepta URLs arbitrarias ni funciona como proxy abierto. El PDF y el editor consumirán el snapshot que recibe el frontend, sin volver a consultar al proveedor durante la exportación.
+La API no acepta URLs arbitrarias ni funciona como proxy abierto. El editor y el PDF consumen el snapshot que recibió el frontend, sin volver a consultar al proveedor durante la exportación.

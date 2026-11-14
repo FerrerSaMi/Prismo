@@ -9,7 +9,7 @@ Verificación de consulta: 13/11/2026. Fuente: [API del Banco de Indicadores de 
 | CAT-06 Empresas | Unidades económicas del sector privado y paraestatal | `5300000001` | Unidades económicas (`UNIT=104`) | México nacional y diez entidades |
 | CAT-09 Educación | Tasa de alfabetización de personas de 15 a 24 años | `1002000050` | Tasa (`UNIT=128`), presentada como porcentaje | México nacional y diez entidades |
 
-Se probaron consultas reales para `00`, `01`, `05`, `07`, `09`, `11`, `14`, `15`, `19`, `21` y `30` en ambos indicadores. El filtro del prototipo ofrece 2010, 2015, 2020 y 2025 como extremos del rango; no todos los años tienen observación. Los periodos ausentes permanecen como «Sin dato». La comparación solo se activa cuando las geografías comparten observaciones; no se mezclan unidades ni indicadores en una misma vista.
+Se probaron consultas reales para `00`, `01`, `05`, `07`, `09`, `11`, `14`, `15`, `19`, `21` y `30` en población inmigrante y viviendas con agua entubada. El filtro ofrece 2010, 2015, 2020 y 2025 como extremos del rango; no todos los años tienen observación. Los periodos ausentes permanecen como «Sin dato». La comparación solo se activa cuando las geografías comparten observaciones; no se mezclan unidades ni indicadores en una misma vista.
 
 Los indicadores de empresas y educación se verificaron también en esas once geografías. Empresas ofrece 2013–2018 y solo 2018 es común para la comparación predeterminada de México nacional con Ciudad de México. Es un conteo de establecimientos, no de empresas creadas. Educación conserva la etiqueta de tasa que devuelve INEGI y la escala porcentual de la serie; se refiere únicamente a personas de 15 a 24 años.
 
