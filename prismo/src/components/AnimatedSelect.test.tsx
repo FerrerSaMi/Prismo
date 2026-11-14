@@ -17,3 +17,20 @@ it('abre opciones animadas y actualiza el selector al elegir una', () => {
   expect((select as HTMLSelectElement).value).toBe('BRA')
   expect(screen.queryByRole('listbox')).toBeNull()
 })
+
+it('abre la lista hacia arriba cuando el selector está junto al borde inferior', () => {
+  const originalHeight = window.innerHeight
+  Object.defineProperty(window, 'innerHeight', { configurable: true, value: 500 })
+  try {
+    render(<label>Territorio<AnimatedSelect defaultValue="MEX"><option value="MEX">México</option><option value="BRA">Brasil</option></AnimatedSelect></label>)
+    const select = screen.getByLabelText('Territorio')
+    select.getBoundingClientRect = () => ({ top: 440, bottom: 480, left: 20, right: 220, width: 200, height: 40, x: 20, y: 440, toJSON: () => ({}) })
+    fireEvent.pointerDown(select, { button: 0 })
+    const menu = screen.getByRole('listbox')
+    expect(menu.classList.contains('opens-up')).toBe(true)
+    expect(Number.parseInt(menu.style.maxHeight)).toBeLessThanOrEqual(432)
+    expect(Number.parseInt(menu.style.bottom)).toBeGreaterThanOrEqual(0)
+  } finally {
+    Object.defineProperty(window, 'innerHeight', { configurable: true, value: originalHeight })
+  }
+})

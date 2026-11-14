@@ -65,7 +65,7 @@ npm ci
 npm run dev
 ```
 
-El frontend usa la URL relativa `/api` en local. Para INEGI, crea `prismo-api/.dev.vars` con `INEGI_TOKEN=...`; el archivo está ignorado por Git. No coloques el token en `prismo/src`, `public` ni en variables `VITE_*`. La ruta `GET /api/v1/health` permite verificar que la API responde. Los comandos de pruebas y compilación están en los `package.json`; ejecútalos cuando el responsable del proyecto lo solicite.
+El frontend usa la URL relativa `/api` en local. Para INEGI, crea `prismo-api/.dev.vars` con `INEGI_TOKEN=...`; el archivo está ignorado por Git. No coloques el token en `prismo/src`, `public` ni en variables `VITE_*`. La ruta `GET /api/v1/health` permite verificar que la API responde. El comando de pruebas de la raíz y cada caso automatizado se explican en [Pruebas automatizadas](PRUEBAS_AUTOMATIZADAS.md).
 
 ## Preparación de publicación
 
