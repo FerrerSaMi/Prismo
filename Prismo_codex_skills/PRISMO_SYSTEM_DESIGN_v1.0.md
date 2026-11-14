@@ -1,5 +1,7 @@
 # Prismo — System Design y Arquitectura de Software
 
+> Propuesta de origen. El backend implementado vive en `prismo-api/`, separado del frontend `prismo/`. Consulta [la arquitectura vigente](../documentation/ARQUITECTURA_Y_OPERACION.md).
+
 **Documento:** ARQ-PRISMO-001 · **Versión:** 1.0 · **Fecha:** 12/11/2026  
 **Estado:** propuesta técnica implementable, sujeta a validación con el primer corte vertical.  
 **Fuentes internas:** `PRISMO_SRS_v1.0.md`, `PRISMO_PRODUCT_UX_v1.2.md`. **Decisiones de librerías:** `PRISMO_TECH_STACK_v1.0.md`.

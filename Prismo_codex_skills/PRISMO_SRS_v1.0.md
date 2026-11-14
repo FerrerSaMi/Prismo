@@ -1,5 +1,7 @@
 # SRS Prismo — transcripción de referencia de SRS-DATOS-001 v1.0
 
+> Referencia de requisitos de origen. El funcionamiento implementado y las decisiones posteriores están en [Cómo funciona Prismo](../documentation/COMO_FUNCIONA.md) y [Arquitectura y operación](../documentation/ARQUITECTURA_Y_OPERACION.md).
+
 > Documento original: `SRS_Plataforma_Web_Datos_Oficiales_v1.0.docx` (11/11/2026). Referencia textual para Codex; **no sustituye al SRS original**. La definición de público meta adoptada el 12/11/2026 está en `PRISMO_PRODUCT_UX_v1.2.md` y es la actualización aprobada.
 
 SRS  /  REQUISITOS DE SOFTWARE

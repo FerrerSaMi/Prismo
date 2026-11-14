@@ -8,6 +8,8 @@ lang: "es-MX"
 
 # Product Storytelling y UX/UI
 
+> Blueprint de origen. La interfaz y paleta actuales, incluido el modo oscuro, se describen en [Cómo funciona Prismo](../documentation/COMO_FUNCIONA.md) y [Arquitectura y operación](../documentation/ARQUITECTURA_Y_OPERACION.md).
+
 **Identificador:** UX-DATOS-001  
 **Versión:** 1.2 — visión de producto actualizada; identidad visual conservada · línea base de trabajo  
 **Documento fuente:** SRS-DATOS-001, versión 1.0 (11/11/2026)  

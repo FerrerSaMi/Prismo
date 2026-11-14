@@ -1,5 +1,7 @@
 # Prismo — Propuesta de Stack Tecnológico y Decisiones de Ingeniería
 
+> Evaluación de origen. La propuesta de Pages Functions y la voz del documento no describen el estado actual: hoy hay un backend separado en `prismo-api/` y la voz aparece como **Próximamente**. Consulta [la arquitectura vigente](../documentation/ARQUITECTURA_Y_OPERACION.md).
+
 **Documento:** STACK-PRISMO-001 · **Versión:** 1.0 · **Fecha:** 12/11/2026  
 **Tipo:** recomendación técnica, no implementación aprobada automáticamente.  
 **Criterios de selección:** continuidad con React+Vite del autor, tiempo de demo, coste objetivo US$0 (techo de US$10 si resultara indispensable), UX elegante y accesible, APIs oficiales, origen reproducible y escalabilidad evolutiva.
