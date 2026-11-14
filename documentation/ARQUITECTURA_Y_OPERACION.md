@@ -78,3 +78,5 @@ El frontend usa la URL relativa `/api` en local. Para INEGI, crea `prismo-api/.d
 - Los reportes se guardan por navegador, sin cuenta ni sincronización.
 - La caché de Banco Mundial del Worker es temporal y local a cada instancia.
 - La paginación visual del editor y la del PDF pueden diferir. Ver [detalle de exportación](../prismo/docs/PDF_EXPORT.md).
+
+Las ideas de IA, voz, consultas con varios indicadores y fuentes adicionales se documentan en [Propuestas futuras](PROPUESTAS_FUTURAS.md); aún no forman parte de la arquitectura implementada.

@@ -7,6 +7,8 @@ description: Trabajar en Prismo: integrar indicadores oficiales, editar dashboar
 
 Antes de cambiar un flujo, lee [cómo funciona](../documentation/COMO_FUNCIONA.md). Para código, API, contratos o despliegue, consulta [arquitectura y operación](../documentation/ARQUITECTURA_Y_OPERACION.md) y el módulo afectado. Estas guías describen el estado implementado; los cuatro documentos `PRISMO_*.md` de esta carpeta conservan los requisitos y propuestas de origen. Si difieren, aclara la diferencia y sigue las decisiones posteriores del responsable del proyecto.
 
+Las ideas aceptadas para explorar más adelante están en [Propuestas futuras](../documentation/PROPUESTAS_FUTURAS.md). Trátalas como propuestas hasta que se implementen y validen.
+
 ## Invariantes del producto
 
 - `prismo/` contiene el frontend estático; `prismo-api/` contiene el backend independiente. No coloques el token de INEGI en el navegador ni en `VITE_*`.
