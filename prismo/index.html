@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="es-MX">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" href="/PrismoLogo-transparent.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#F6F0E4" />
+    <script>
+      try {
+        const theme = localStorage.getItem('prismo-theme') === 'dark' ? 'dark' : 'light'
+        document.documentElement.dataset.theme = theme
+        document.querySelector('meta[name="theme-color"]').content = theme === 'dark' ? '#17191F' : '#F6F0E4'
+      } catch { document.documentElement.dataset.theme = 'light' }
+    </script>
+    <meta name="description" content="Prismo: datos oficiales y reportes con evidencia verificable." />
+    <title>Prismo · Datos oficiales para reportes claros</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
