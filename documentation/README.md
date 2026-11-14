@@ -8,6 +8,7 @@ Esta carpeta describe **la aplicación implementada**. Los documentos de `Prismo
 | --- | --- |
 | Recorrer la aplicación como usuario y entender cada paso | [Cómo funciona Prismo](COMO_FUNCIONA.md) |
 | Encontrar módulos, contratos, consultas, persistencia y configuración | [Arquitectura y operación](ARQUITECTURA_Y_OPERACION.md) |
+| Preparar, ejecutar e interpretar cada prueba automatizada | [Pruebas automatizadas](PRUEBAS_AUTOMATIZADAS.md) |
 | Decisión de mantener la API separada | [ADR-001](../prismo/docs/ADR-001-backend-separado.md) |
 | Alcance y límites de la exportación | [Exportación PDF](../prismo/docs/PDF_EXPORT.md) |
 | Distribución y comportamiento del editor | [Interfaz del editor](../prismo/docs/EDITOR_UI_DIRECTION.md) |
