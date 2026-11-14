@@ -38,6 +38,7 @@ Vite reenvía `/api/*` a `http://127.0.0.1:8787`. El comando completo de pruebas
 
 - [Índice de documentación](../documentation/README.md)
 - [Pruebas automatizadas](../documentation/PRUEBAS_AUTOMATIZADAS.md)
+- [Propuestas futuras: IA, voz, varios indicadores y nuevas fuentes](../documentation/PROPUESTAS_FUTURAS.md)
 - [API y token de INEGI](../prismo-api/README.md)
 - [Decisión de backend separado](docs/ADR-001-backend-separado.md)
 - [Exportación PDF](docs/PDF_EXPORT.md)

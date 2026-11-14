@@ -49,3 +49,5 @@ El editor muestra hojas y pasa bloques completos a la siguiente cuando correspon
 ## Lo que aparece como próximo
 
 La consulta por voz y las categorías sin indicador verificado se muestran como **Próximamente**. No existe una función de redacción automática ni se presentan datos ficticios como oficiales.
+
+La planificación con IA, la redacción asistida, el lector de dashboards, la entrada por voz y los estudios integrados con varios indicadores figuran únicamente como [propuestas futuras](PROPUESTAS_FUTURAS.md).
