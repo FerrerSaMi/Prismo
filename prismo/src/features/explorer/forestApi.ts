@@ -15,12 +15,12 @@ export async function fetchForestSnapshot(geographies: string[], from: string, t
   try {
     response = await fetch(`${base}/api/v1/indicators/${indicatorId}/observations?${params}`, { signal })
   } catch {
-    throw new ForestApiError('NETWORK_ERROR', 'No se pudo conectar con Prismo. Revisa tu conexión e inténtalo de nuevo.')
+    throw new ForestApiError('NETWORK_ERROR', import.meta.env.DEV ? 'No se pudo conectar con la API de Prismo. Inicia frontend y backend con npm run dev desde la raíz del proyecto.' : 'No se pudo conectar con la API de Prismo. Revisa la conexión e inténtalo de nuevo.')
   }
   const payload: unknown = await response.json().catch(() => null)
   if (!response.ok) {
     const error = errorSchema.safeParse(payload)
-    throw new ForestApiError(error.success ? error.data.code : 'API_ERROR', error.success ? error.data.message : 'No se pudo consultar el indicador.')
+    throw new ForestApiError(error.success ? error.data.code : 'API_ERROR', error.success ? error.data.message : import.meta.env.DEV ? 'La API de Prismo no respondió correctamente. Inicia ambos servicios con npm run dev desde la raíz.' : 'La API de Prismo no respondió correctamente. Inténtalo de nuevo.')
   }
   const parsed = datasetSnapshotSchema.safeParse(payload)
   if (!parsed.success) throw new ForestApiError('INVALID_RESPONSE', 'Los datos llegaron en un formato inesperado. Inténtalo de nuevo.')

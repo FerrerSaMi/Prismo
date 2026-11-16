@@ -14,21 +14,17 @@ La hoja y la vista previa del dashboard son blancas en ambos temas para conserva
 
 ## Desarrollo local
 
-Instala dependencias con `npm ci`. En dos terminales, inicia primero la [API separada](../prismo-api/README.md) y después el frontend:
+Instala las dependencias de ambos proyectos y arráncalos desde la raíz. El comando inicia la [API separada](../prismo-api/README.md) y Vite como procesos independientes:
 
 ```powershell
-cd prismo-api
-npm ci
-npm run dev
-```
-
-```powershell
-cd prismo
-npm ci
+npm --prefix prismo-api ci
+npm --prefix prismo ci
 npm run dev
 ```
 
 Vite reenvía `/api/*` a `http://127.0.0.1:8787`. El comando completo de pruebas se ejecuta desde la raíz con `npm test`. Su preparación, alcance y casos están en [Pruebas automatizadas](../documentation/PRUEBAS_AUTOMATIZADAS.md).
+
+Si la API ya está activa en el puerto 8787, `npm run dev` la reutiliza y solo inicia el frontend. Si el puerto pertenece a otro servicio, detén ese proceso o cambia su puerto antes de iniciar Prismo.
 
 ## Preparación para despliegue
 

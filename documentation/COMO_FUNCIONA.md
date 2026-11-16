@@ -30,6 +30,8 @@ Después de consultar, **Ir al editor de dashboards** lleva a un estudio con tre
 
 La galería permite activar una vista, elegir cuáles van al reporte y ordenar las seleccionadas. El inspector cambia título, altura, tipografía, alineación, colores hexadecimales, series visibles y las opciones propias de cada tipo. Cada color reúne muestras, selector visual y campo hexadecimal en un único menú. El lienzo muestra los cambios junto con la procedencia de los datos. Las vistas se crean a partir del snapshot recibido; no son cifras de ejemplo.
 
+Los menús de color se muestran por encima del editor para que el panel no recorte el selector. Los ejes numéricos de tendencia y comparación usan marcas enteras; los valores precisos permanecen en la tabla y en la información contextual de la gráfica.
+
 Al continuar, se crea un reporte local o se agregan las vistas a uno existente. La configuración visible de cada vista queda dentro de su `ChartSpec`.
 
 ## 4. Reporte editable
@@ -39,6 +41,8 @@ Al continuar, se crea un reporte local o se agregan las vistas a uno existente. 
 El editor usa Tiptap para el texto y un nodo propio para cada dashboard. Se pueden escribir títulos, párrafos, listas y citas; aplicar negrita, cursiva y otros formatos; y alinear texto. El panel **Formato** está a la derecha y sigue la ventana mientras se recorre el reporte. Se cierra con la **×**, Escape o un clic fuera. En pantallas estrechas flota sobre la interfaz y se puede retirar para volver a la hoja.
 
 Cada dashboard del reporte conserva su fuente y se puede retitular, recolorear, alinear, cambiar de fuente, ajustar en altura, redimensionar desde la esquina, mover entre bloques o eliminar. **+ Dashboard** inserta otra vista disponible junto al cursor. El tamaño visual de la información se ajusta al ancho del bloque. El sello inferior muestra el logo y dos líneas: **Creado con Prismo** y **Datos con procedencia · análisis de tu reporte**.
+
+**Consultas guardadas** muestra los datos asociados al reporte. Mantener presionada la **×** de una consulta quita ese snapshot, sus dashboards y sus referencias; conserva el texto redactado para que puedas revisarlo. **Consultar otro indicador** guarda el borrador y abre el catálogo. Después de consultar los datos y preparar las vistas, elige el reporte existente en **Enviar a** para agregar nuevos dashboards.
 
 El editor muestra hojas y pasa bloques completos a la siguiente cuando corresponde. Los borradores, su JSON de edición y los snapshots se guardan en IndexedDB mediante Dexie. El estado **Guardado localmente** aparece después de confirmarse el guardado. Los reportes de un navegador no se sincronizan automáticamente con otros dispositivos.
 

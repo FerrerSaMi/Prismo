@@ -7,6 +7,7 @@ import { indicatorInfo, isPercent } from './indicatorCatalog'
 const seriesColors = ['#5c4635', '#a4482e', '#3f655e', '#6656a4']
 function indicatorLabel(snapshot: DatasetSnapshot) { return indicatorInfo(snapshot.indicatorId).short }
 const numberFormat = new Intl.NumberFormat('es-MX', { maximumFractionDigits: 2 })
+const axisNumberFormat = new Intl.NumberFormat('es-MX', { maximumFractionDigits: 0 })
 
 function ChartCanvas({ option, label }: { option: EChartsOption; label: string }) {
   const ref = useRef<HTMLDivElement>(null)
@@ -40,7 +41,7 @@ export function TrendChart({ snapshot, countries = snapshot.query.geographies, c
     legend: { top: 0, type: 'scroll' },
     tooltip: { trigger: 'axis', valueFormatter: value => value == null ? 'Sin dato' : `${numberFormat.format(Number(value))}${isPercent(snapshot) ? ' %' : ''}` },
     xAxis: { type: 'category', data: years, name: 'Año', boundaryGap: false },
-    yAxis: { type: 'value', name: isPercent(snapshot) ? '%' : snapshot.unit, min: lower, max: upper },
+    yAxis: { type: 'value', name: isPercent(snapshot) ? '%' : snapshot.unit, min: Math.floor(lower), max: Math.ceil(upper), minInterval: 1, axisLabel: { formatter: value => axisNumberFormat.format(Math.round(Number(value))) } },
     series: countries.map((code, index) => ({
       name: countryName(code), type: 'line' as const, connectNulls: false, showSymbol: showPoints ?? years.length <= 15,
       symbol: ['circle', 'diamond', 'triangle', 'rect'][index], symbolSize: 8,
@@ -58,7 +59,7 @@ export function ComparisonChart({ snapshot, year, countries = snapshot.query.geo
     animationDuration: 350, color: '#5c4635', textStyle: { fontFamily, fontSize, color: textColor },
     grid: { left: 125, right: 45, top: 12, bottom: 35 },
     tooltip: { trigger: 'item', valueFormatter: value => `${numberFormat.format(Number(value))}${isPercent(snapshot) ? ' %' : ''}` },
-    xAxis: { type: 'value', name: isPercent(snapshot) ? '%' : snapshot.unit, min: Math.min(0, ...numeric), max: Math.max(1, ...numeric) * 1.12 },
+    xAxis: { type: 'value', name: isPercent(snapshot) ? '%' : snapshot.unit, min: Math.floor(Math.min(0, ...numeric)), max: Math.ceil(Math.max(1, ...numeric) * 1.12), minInterval: 1, axisLabel: { formatter: value => axisNumberFormat.format(Math.round(Number(value))) } },
     yAxis: { type: 'category', data: countries.map(countryName).reverse() },
     series: [{ type: 'bar', data: [...values].reverse().map((value, index) => ({ value, itemStyle: { color: colors[countries[values.length - index - 1]] ?? seriesColors[values.length - index - 1] } })), label: { show: showValues, position: 'right', formatter: params => params.value == null ? '' : `${numberFormat.format(Number(params.value))}${isPercent(snapshot) ? ' %' : ''}` } }],
   }

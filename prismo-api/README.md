@@ -8,6 +8,8 @@ Las pruebas del BFF y la suite completa del repositorio están descritas en [Pru
 
 ## Desarrollo
 
+Desde la raíz del repositorio, `npm run dev` inicia esta API y el frontend como procesos separados. Si trabajas solo en el backend, usa:
+
 ```bash
 npm ci
 npm run dev

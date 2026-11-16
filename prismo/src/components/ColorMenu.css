@@ -4,7 +4,7 @@
 .color-menu-trigger:hover { border-color: var(--prismo-highlight); }
 .color-menu-trigger svg { width: 18px; height: 18px; margin-left: auto; color: var(--prismo-accent-text); }
 .color-menu-swatch { width: 21px; height: 21px; flex: none; border: 1px solid rgb(127 127 127 / 50%); border-radius: 4px; }
-.color-menu-popover { position: absolute; z-index: 60; top: calc(100% + 5px); left: 0; width: min(280px, 80vw); padding: 13px; border: 1px solid var(--prismo-beige); border-radius: 9px; background: var(--prismo-surface); color: var(--prismo-ink); box-shadow: 0 15px 35px rgb(0 0 0 / 22%); animation: select-enter .18s ease-out; }
+.color-menu-popover { position: fixed; z-index: 1100; overflow-y: auto; padding: 13px; border: 1px solid var(--prismo-beige); border-radius: 9px; background: var(--prismo-surface); color: var(--prismo-ink); box-shadow: 0 15px 35px rgb(0 0 0 / 22%); animation: select-enter .18s ease-out; }
 .color-menu-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; margin: 12px 0; }
 .color-menu-grid button { width: 29px; height: 29px; padding: 0; border: 1px solid rgb(127 127 127 / 50%); border-radius: 50%; cursor: pointer; }
 .color-menu-grid button.is-selected { outline: 2px solid var(--prismo-highlight); outline-offset: 2px; }

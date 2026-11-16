@@ -55,21 +55,17 @@ Los componentes reutilizables están en `prismo/src/components/`: `AnimatedList`
 
 ## Desarrollo local
 
-El backend requiere Node 24 o superior. En dos terminales:
+El backend requiere Node 24 o superior. Después de instalar dependencias, `npm run dev` desde la raíz inicia la API y Vite como procesos independientes:
 
 ```powershell
-cd prismo-api
-npm ci
-npm run dev
-```
-
-```powershell
-cd prismo
-npm ci
+npm --prefix prismo-api ci
+npm --prefix prismo ci
 npm run dev
 ```
 
 El frontend usa la URL relativa `/api` en local. Para INEGI, crea `prismo-api/.dev.vars` con `INEGI_TOKEN=...`; el archivo está ignorado por Git. No coloques el token en `prismo/src`, `public` ni en variables `VITE_*`. La ruta `GET /api/v1/health` permite verificar que la API responde. El comando de pruebas de la raíz y cada caso automatizado se explican en [Pruebas automatizadas](PRUEBAS_AUTOMATIZADAS.md).
+
+El arranque de la raíz consulta `/api/v1/health` antes de iniciar el backend. Si ya responde una API de Prismo en `127.0.0.1:8787`, la reutiliza; si responde otro servicio, informa el conflicto de puerto.
 
 ## Preparación de publicación
 

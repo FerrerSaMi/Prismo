@@ -23,6 +23,7 @@ import Stepper from '../../components/Stepper'
 import CardNav from '../../components/CardNav'
 import EditorToolButton from '../../components/EditorToolButton'
 import { WarmTooltipGroup } from '../../components/WarmTooltip'
+import HoldButton from '../../components/HoldButton'
 
 function usedSnapshotIds(node: JSONContent): string[] {
   const own = node.type === 'evidenceChart' && typeof node.attrs?.snapshotId === 'string' ? [node.attrs.snapshotId] : []
@@ -38,6 +39,7 @@ function DocumentEditor({ initial }: { initial: ReportDocument }) {
   const navigate = useNavigate()
   const [title, setTitle] = useState(initial.title)
   const [json, setJson] = useState<JSONContent>(initial.editorJson as JSONContent)
+  const [sources, setSources] = useState(initial.sources)
   const [dirty, setDirty] = useState(false)
   const changeVersion = useRef(0)
   const paperRef = useRef<HTMLDivElement>(null)
@@ -83,12 +85,12 @@ function DocumentEditor({ initial }: { initial: ReportDocument }) {
     if (!dirty) return
     const version = changeVersion.current
     const timer = window.setTimeout(() => {
-      void saveReport({ ...initial, title: title.trim() || 'Reporte sin título', editorJson: json as ReportDocument['editorJson'], typography: { fontFamily, fontSize, fontSizePx, titleColor, titleFontFamily }, updatedAt: new Date().toISOString() })
+      void saveReport({ ...initial, title: title.trim() || 'Reporte sin título', editorJson: json as ReportDocument['editorJson'], sources, typography: { fontFamily, fontSize, fontSizePx, titleColor, titleFontFamily }, updatedAt: new Date().toISOString() })
         .then(() => { if (changeVersion.current === version) { setDirty(false); setSaveState('Guardado localmente') } })
         .catch(() => setSaveState('No se pudo guardar. Copia tu texto y vuelve a intentar.'))
     }, 600)
     return () => window.clearTimeout(timer)
-  }, [title, json, dirty, initial, fontFamily, fontSize, fontSizePx, titleColor, titleFontFamily])
+  }, [title, json, sources, dirty, initial, fontFamily, fontSize, fontSizePx, titleColor, titleFontFamily])
 
   useEffect(() => {
     const paper = paperRef.current
@@ -163,7 +165,7 @@ function DocumentEditor({ initial }: { initial: ReportDocument }) {
     chain.setMark('prismoTextStyle', { ...editor.getAttributes('prismoTextStyle'), ...changes }).run()
   }
 
-  const currentReport = (): ReportDocument => ({ ...initial, title: title.trim() || 'Reporte sin título', editorJson: json as ReportDocument['editorJson'], typography: { fontFamily, fontSize, fontSizePx, titleColor, titleFontFamily } })
+  const currentReport = (): ReportDocument => ({ ...initial, title: title.trim() || 'Reporte sin título', editorJson: json as ReportDocument['editorJson'], sources, typography: { fontFamily, fontSize, fontSizePx, titleColor, titleFontFamily } })
 
   useEffect(() => () => { if (previewUrl) URL.revokeObjectURL(previewUrl) }, [previewUrl])
   useEffect(() => { if (!previewUrl) return; previewCloseRef.current?.focus(); const close = (event: KeyboardEvent) => { if (event.key === 'Escape') setPreviewUrl(null) }; window.addEventListener('keydown', close); return () => window.removeEventListener('keydown', close) }, [previewUrl])
@@ -186,11 +188,30 @@ function DocumentEditor({ initial }: { initial: ReportDocument }) {
     changeVersion.current += 1; setFontFamily(family); setFontSize(size); setDirty(true); setSaveState('Guardando…')
   }
   function insertDashboard(snapshotId: string, kind: DashboardKind) {
-    const snapshot = initial.sources.find(source => source.snapshotId === snapshotId)
+    const snapshot = sources.find(source => source.snapshotId === snapshotId)
     if (!snapshot || !editor) return
     const draft = initialDashboardDrafts(snapshot)[kind]
     const spec = buildChartSpec(snapshot, draft)
     editor.chain().focus().insertContentAt(editor.state.selection.to, { type: 'evidenceChart', attrs: { snapshotId, spec } }).run()
+  }
+  function removeConsultation(snapshotId: string) {
+    if (!editor) return
+    const content = (editor.getJSON().content ?? []).filter(node => !(node.type === 'evidenceChart' && node.attrs?.snapshotId === snapshotId))
+    editor.commands.setContent({ type: 'doc', content })
+    setSources(current => current.filter(source => source.snapshotId !== snapshotId))
+    setInsertMenu(false)
+    changeVersion.current += 1
+    setJson(editor.getJSON())
+    setDirty(true)
+    setSaveState('Guardando…')
+  }
+  async function addConsultation() {
+    try {
+      await saveReport({ ...currentReport(), editorJson: (editor?.getJSON() ?? json) as ReportDocument['editorJson'], updatedAt: new Date().toISOString() })
+      navigate('/explorar')
+    } catch {
+      setSaveState('No se pudo guardar. Copia tu texto y vuelve a intentar.')
+    }
   }
   function alignText(alignment: Alignment) {
     if (!editor) return
@@ -205,11 +226,12 @@ function DocumentEditor({ initial }: { initial: ReportDocument }) {
   }
 
   const used = new Set(usedSnapshotIds(json))
-  const references = [...new Map(initial.sources.filter(source => used.has(source.snapshotId)).map(source => [source.snapshotId, source])).values()]
+  const references = [...new Map(sources.filter(source => used.has(source.snapshotId)).map(source => [source.snapshotId, source])).values()]
 
   return <section className="report-workspace" aria-label="Editor de reporte">
     <div className="report-topline"><button type="button" className="back-link report-back" onClick={() => navigate('/reportes')}>← Mis reportes</button><span role="status">{saveState} · {pageCount} {pageCount === 1 ? 'página' : 'páginas'}</span><div className="report-pdf-actions"><button type="button" className="button button-secondary" disabled={previewing} onClick={() => void previewPdf()} title="Revisar el PDF antes de descargarlo">{previewing ? 'Preparando…' : 'Vista previa'}</button><button type="button" className="button button-primary" disabled={exporting} onClick={() => void exportPdf()}>{exporting ? 'Generando…' : 'Descargar PDF'}</button></div></div>
     <Stepper step={3} className="report-stepper" />
+    <div className="report-source-manager"><CardNav title={`Consultas guardadas (${sources.length})`} panelClassName="report-source-manager-body"><p>Quita una consulta para retirar sus dashboards y referencias. El texto que escribiste permanece.</p><ul>{sources.map(source => <li key={source.snapshotId}><span><strong>{indicatorInfo(source.indicatorId).label}</strong><small>{source.query.geographies.map(countryName).join(', ')} · {source.query.from}–{source.query.to}</small></span><HoldButton label={`Quitar consulta de ${indicatorInfo(source.indicatorId).label}`} title="Mantén presionado para quitar esta consulta y sus dashboards" onHold={() => removeConsultation(source.snapshotId)}>×</HoldButton></li>)}</ul>{sources.length === 0 && <p>No hay consultas guardadas en este reporte.</p>}</CardNav><button type="button" className="button button-secondary" onClick={() => void addConsultation()}>＋ Consultar otro indicador</button></div>
     {exportError && <p role="alert" className="form-error">{exportError}</p>}
     <div className="report-editor-layout">
     <aside className="format-rail" aria-label="Herramientas de formato">
@@ -248,8 +270,8 @@ function DocumentEditor({ initial }: { initial: ReportDocument }) {
     </div>}
     </aside>
     <div ref={paperRef} className={`report-paper paper-font-${fontFamily} paper-text-${fontSize}`} style={{ fontSize: `${fontSizePx}px`, minHeight: `${pageCount * PAGE_HEIGHT}px` }}><div className="paper-pages" aria-hidden="true">{Array.from({ length: pageCount }, (_, index) => <div className="paper-page-bg" style={{ top: `${index * PAGE_HEIGHT}px` }} key={index} />)}</div><label htmlFor="report-title" className="eyebrow">Título del documento</label><input id="report-title" className={`report-title-input paper-font-${titleFontFamily}`} style={{ color: titleColor }} value={title} onFocus={() => { setToolbarOpen(true); setToolbarGroup('title') }} onChange={event => { changeVersion.current += 1; setTitle(event.target.value); setDirty(true); setSaveState('Guardando…') }} />
-      {caret && <div className="caret-dashboard-menu" style={{ top: caret.top, left: caret.left }}><button type="button" onMouseDown={event => event.preventDefault()} onClick={() => setInsertMenu(value => !value)}>＋ Dashboard</button>{insertMenu && <AnimatedList className="caret-dashboard-options" label="Vistas disponibles para insertar" animation="slide">{initial.sources.flatMap(source => (['line', 'bar', 'kpi', 'delta', 'table'] as const).filter(kind => kind === 'bar' ? source.query.geographies.length > 1 && commonYears(source).length > 0 : kind === 'delta' ? commonYears(source).length > 1 : true).map(kind => <button type="button" key={`${source.snapshotId}-${kind}`} onMouseDown={event => event.preventDefault()} onClick={() => { insertDashboard(source.snapshotId, kind); setInsertMenu(false) }}>{kind === 'line' ? 'Tendencia' : kind === 'bar' ? 'Comparación' : kind === 'kpi' ? 'Último valor' : kind === 'delta' ? 'Cambio' : 'Tabla'} · {source.query.geographies.map(countryName).join(', ')}</button>))}</AnimatedList>}</div>}
-      <ReportSources.Provider value={initial.sources}><EditorContent editor={editor} className="report-editor-content" /></ReportSources.Provider>
+      {caret && <div className="caret-dashboard-menu" style={{ top: caret.top, left: caret.left }}><button type="button" onMouseDown={event => event.preventDefault()} onClick={() => setInsertMenu(value => !value)}>＋ Dashboard</button>{insertMenu && <AnimatedList className="caret-dashboard-options" label="Vistas disponibles para insertar" animation="slide">{sources.flatMap(source => (['line', 'bar', 'kpi', 'delta', 'table'] as const).filter(kind => kind === 'bar' ? source.query.geographies.length > 1 && commonYears(source).length > 0 : kind === 'delta' ? commonYears(source).length > 1 : true).map(kind => <button type="button" key={`${source.snapshotId}-${kind}`} onMouseDown={event => event.preventDefault()} onClick={() => { insertDashboard(source.snapshotId, kind); setInsertMenu(false) }}>{kind === 'line' ? 'Tendencia' : kind === 'bar' ? 'Comparación' : kind === 'kpi' ? 'Último valor' : kind === 'delta' ? 'Cambio' : 'Tabla'} · {source.query.geographies.map(countryName).join(', ')}</button>))}{sources.length === 0 && <span>No hay consultas. Usa «Consultar otro indicador».</span>}</AnimatedList>}</div>}
+      <ReportSources.Provider value={sources}><EditorContent editor={editor} className="report-editor-content" /></ReportSources.Provider>
       <section className="report-references" aria-labelledby="references-title"><h2 id="references-title">Fuentes de este reporte</h2>{references.map(source => <p key={source.snapshotId}>{source.attribution}. <em>{indicatorInfo(source.indicatorId).label} ({source.unit})</em>, {source.query.geographies.map(countryName).join(', ')}, {source.query.from}–{source.query.to}. Consulta: {new Date(source.fetchedAt).toLocaleString('es-MX')}. <a href={source.sourceUrl} target="_blank" rel="noopener noreferrer">{source.provider === 'inegi-indicators' ? 'Documentación oficial ↗' : 'Datos originales ↗'}</a></p>)}</section>
       <div className="report-stamp" style={{ top: `${(pageCount - 1) * PAGE_HEIGHT + STAMP_TOP}px` }}><img src="/PrismoLogo-transparent.png" alt="" /><span>Creado con <strong>Prismo</strong><small>Datos con procedencia · análisis de tu reporte</small></span></div>
     </div>
