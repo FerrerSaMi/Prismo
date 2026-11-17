@@ -102,15 +102,15 @@ export async function getForestSnapshot(
     } catch (error) {
       if (attempt === 0) { await new Promise(resolve => setTimeout(resolve, 200)); continue }
       if (error instanceof Error && (error.name === 'TimeoutError' || error.name === 'AbortError')) {
-        throw new ApiError(504, 'UPSTREAM_TIMEOUT', 'La fuente tardó demasiado en responder')
+        throw new ApiError(504, 'UPSTREAM_TIMEOUT', 'El Banco Mundial no respondió a tiempo. Inténtalo de nuevo más tarde.')
       }
-      throw new ApiError(503, 'UPSTREAM_UNAVAILABLE', 'No se pudo consultar la fuente oficial')
+      throw new ApiError(503, 'UPSTREAM_UNAVAILABLE', 'No se pudo conectar con el Banco Mundial. Inténtalo de nuevo más tarde.')
     }
     if (response.ok) break
     if (attempt === 0 && (response.status === 429 || response.status >= 500)) { await new Promise(resolve => setTimeout(resolve, 200)); continue }
-    throw new ApiError(503, 'UPSTREAM_UNAVAILABLE', 'La fuente oficial no está disponible')
+    throw new ApiError(503, 'UPSTREAM_UNAVAILABLE', 'El Banco Mundial no está disponible por ahora. Inténtalo de nuevo más tarde.')
   }
-  if (!response?.ok) throw new ApiError(503, 'UPSTREAM_UNAVAILABLE', 'La fuente oficial no está disponible')
+  if (!response?.ok) throw new ApiError(503, 'UPSTREAM_UNAVAILABLE', 'El Banco Mundial no está disponible por ahora. Inténtalo de nuevo más tarde.')
 
   let payload: unknown
   try { payload = await response.json() } catch { throw new ApiError(502, 'UPSTREAM_INVALID', 'La fuente devolvió una respuesta inválida') }

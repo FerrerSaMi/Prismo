@@ -6,7 +6,7 @@ import { NavLink } from 'react-router'
 import { COUNTRY_CODES, countryName, type CountryCode } from './countries'
 import DashboardBuilder from './DashboardBuilder'
 import { commonYears } from './forestAnalysis'
-import { fetchForestSnapshot } from './forestApi'
+import { fetchForestSnapshot, ForestApiError } from './forestApi'
 import ForestTable from './ForestTable'
 import { indicatorInfo, isPercent } from './indicatorCatalog'
 import AnimatedList from '../../components/AnimatedList'
@@ -53,6 +53,7 @@ export default function ForestExplorer({ indicatorId = 'wb-forest-area-share' }:
   const hasValues = snapshot?.observations.some(item => item.value !== null)
   const sharedYear = snapshot ? commonYears(snapshot)[0] : undefined
   const comparisonValues = snapshot && sharedYear ? snapshot.query.geographies.map(code => ({ code, value: snapshot.observations.find(item => item.geographyId === code && item.period === sharedYear)?.value })).filter((item): item is { code: string; value: number } => item.value != null).sort((a, b) => b.value - a.value) : []
+  const bankUnavailable = query.error instanceof ForestApiError && (query.error.code === 'UPSTREAM_TIMEOUT' || query.error.code === 'UPSTREAM_UNAVAILABLE')
 
   return <section className="shell page forest-page" aria-labelledby="forest-title">
     <NavLink className="back-link" to="/explorar">← Volver a las categorías</NavLink>
@@ -72,7 +73,7 @@ export default function ForestExplorer({ indicatorId = 'wb-forest-area-share' }:
     {formError && <p className="form-error" role="alert">{formError}</p>}
 
     {selection && query.isPending && <div className="result-state"><LatticeLoader label="Consultando la fuente oficial" /></div>}
-    {selection && query.isError && <div className="result-state error-state" role="alert"><h2>No pudimos consultar este indicador</h2><p>{query.error.message}</p><button type="button" className="button button-secondary" onClick={() => query.refetch()}>Reintentar consulta</button></div>}
+    {selection && query.isError && <div className="result-state error-state" role="alert"><h2>{bankUnavailable ? 'El Banco Mundial no responde por ahora' : 'No pudimos consultar este indicador'}</h2><p>{bankUnavailable ? 'No recibimos respuesta de la fuente oficial. Intenta de nuevo más tarde.' : query.error.message}</p><button type="button" className="button button-secondary" onClick={() => query.refetch()}>Reintentar consulta</button></div>}
 
     {snapshot && <>
       <div className="result-intro"><div><p className="eyebrow">Paso 1 · revisa la consulta</p><h2>Datos encontrados</h2><p>{snapshot.query.geographies.map(countryName).join(' · ')} · {snapshot.query.from}–{snapshot.query.to} · {snapshot.unit}</p></div>{hasValues && <a className="button button-secondary" href="#dashboard-editor">Ir al editor de dashboards ↓</a>}</div>
